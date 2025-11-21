@@ -1,0 +1,26 @@
+name: Env Vars Example
+on:
+  push:
+    branches:
+      - main
+env:
+  TOP_ENV_VAR: "Hello, I am a top level variable"
+
+jobs:
+  my-simple-job:
+    runs-on: ubuntu-latest
+    env:
+      JOB_ENV_VAR: "Hello, I am a job level variable"
+    steps:
+      - name: Run simple task
+        if: env.TOP_ENV_VAR != 'someting else'
+        run: |
+          echo "TOP_ENV_VAR: $TOP_ENV_VAR"
+          echo "JOB_ENV_VAR: $JOB_ENV_VAR"
+          echo "STEP_ENV_VAR: $STEP_ENV_VAR"
+          echo "MY_DYNAMIC_VAR=Some value here" >> $GITHUB_ENV
+        env:
+          STEP_ENV_VAR: "Finally I am a step level variable"
+      - name: Use dynamic variable
+        run: |
+          echo "MY_DYNAMIC_VAR is: $MY_DYNAMIC_VAR"

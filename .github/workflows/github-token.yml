@@ -1,0 +1,33 @@
+name: Github Token Examples
+
+on: [push]
+
+jobs:
+  open-issue-command:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+    steps:
+      - name: Create an issue
+        run: |
+          gh issue --repo ${{ github.repository }} \
+          create --title "Issue title from command" --body "This issue was created automatically by a GitHub Actions workflow."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  open-issue-curl:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Create an issue
+        run: |
+          curl --request POST \
+          --url https://api.github.com/repos/${{ github.repository }}/issues \
+          --header "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          --header "content-type: application/json" \
+          --data '{
+            "title":"Issue title from curl",
+            "body":"This issue was created automatically by a GitHub Actions workflow."
+            }' \
+          --fail

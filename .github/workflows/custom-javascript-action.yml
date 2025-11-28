@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: josecueva/my-first-custom-github-action@v1.0
+        uses: josecueva/my-first-custom-github-action@v1.1
         with:
           name: Meeeeeeeee
 

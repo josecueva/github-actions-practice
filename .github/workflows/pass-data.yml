@@ -1,0 +1,32 @@
+# See 'outputs' in other examples for other references
+name: Pass Data (using artifacts) between Jobs Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create file
+        run: echo "This is some data from job1" > my-file.txt
+      - name: Upload file
+        id: upload-file
+        uses: actions/upload-artifact@v5
+        with:
+          name: my-artifact
+          path: my-file.txt
+  job2:
+    runs-on: ubuntu-latest
+    needs: job1
+    steps:
+      - name: Download file
+        id: download-file
+        uses: actions/download-artifact@v6
+        with:
+          name: my-artifact
+          path: data/
+      - name: Read file
+        run: cat data/my-file.txt

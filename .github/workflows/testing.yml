@@ -1,12 +1,14 @@
-name: hello-world
-on:
-  push:
-    branches: [main]
+name: Practice workflow
+on: workflow_dispatch
 jobs:
-  build:
+  open-issue:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
     steps:
-        - uses: actions/checkout@v6
-        - name: Print Hello World step
-          run: |
-            echo "Hello world"
+      - run: |
+          gh issue --repo ${{ github.repository }} \
+            create --title "Some title here" --body "some body here"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

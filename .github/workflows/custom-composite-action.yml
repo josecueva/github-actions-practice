@@ -1,3 +1,6 @@
+# CUSTOM COMPOSITE ACTION PROCESS:
+# https://docs.github.com/en/actions/tutorials/create-actions/create-a-composite-action
+# Action that I created: https://github.com/josecueva/my-first-composite-action
 name: Custom Composite action
 on:
   push:

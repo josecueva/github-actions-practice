@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - id: foo
-        uses: josecueva/my-first-composite-action@v2
+        uses: josecueva/my-first-composite-action@v3
         with:
           name: Josee
       - run: "echo My Random Number is: ${RANDOM_NUMBER}"

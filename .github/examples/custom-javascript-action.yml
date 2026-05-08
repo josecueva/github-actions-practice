@@ -1,3 +1,6 @@
+# CUSTOM ACTION PROCESS:
+# https://docs.github.com/en/actions/tutorials/create-actions/create-a-javascript-action
+# Action that I created: https://github.com/josecueva/my-first-custom-github-action
 name: Using my custom JavaScript action
 on:
   push:

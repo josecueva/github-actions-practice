@@ -1,0 +1,29 @@
+name: Label issues
+on:
+  issues:
+    types:
+      - reopened
+      - opened
+      - closed
+jobs:
+  label_issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Label opened/reopened issues
+        if: ${{ github.event.action == 'opened' || github.event.action == 'reopened' }}
+        run: gh issue edit "$NUMBER" --add-label "$LABELS"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          LABELS: "good first issue,help wanted"
+      - name: Label closed issues
+        if: ${{ github.event.action == 'closed' }}
+        run: gh issue edit "$NUMBER" --add-label "$LABELS"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          LABELS: "invalid"

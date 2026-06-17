@@ -1,4 +1,4 @@
-name: Webhook
+name: Dependant Job
 on:
   push:
     branches:
